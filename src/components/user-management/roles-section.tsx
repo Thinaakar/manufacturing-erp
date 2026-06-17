@@ -16,25 +16,33 @@ export function RolesSection() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ label: '', description: '' });
   const [formError, setFormError] = useState('');
+  const [saving, setSaving] = useState(false);
 
   const selected = roles.find((r) => r.id === selectedId);
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     const error = validateFields([() => required(form.label, 'Role name')]);
     if (error) {
       setFormError(error);
       return;
     }
-    addRole({
-      label: form.label,
-      description: form.description || 'Custom role',
-      permissions: ['dashboard.view'],
-      color: 'default',
-      status: 'active',
-    });
-    setForm({ label: '', description: '' });
-    setFormError('');
-    setShowForm(false);
+    setSaving(true);
+    try {
+      await addRole({
+        label: form.label,
+        description: form.description || 'Custom role',
+        permissions: ['dashboard.view'],
+        color: 'default',
+        status: 'active',
+      });
+      setForm({ label: '', description: '' });
+      setFormError('');
+      setShowForm(false);
+    } catch (e) {
+      setFormError(e instanceof Error ? e.message : 'Failed to create role.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -60,7 +68,7 @@ export function RolesSection() {
           onSubmit={handleCreate}
           title="Create Role"
           subtitle="Define a new role and assign permissions later"
-          submitLabel="Save Role"
+          submitLabel={saving ? 'Saving...' : 'Save Role'}
           error={formError}
         >
           <FormInput
@@ -119,9 +127,13 @@ export function RolesSection() {
                     variant="ghost"
                     size="sm"
                     className="text-erp-danger"
-                    onClick={() => {
-                      const ok = deleteRole(selected.id);
-                      if (!ok) alert('Cannot delete role with assigned users or system roles.');
+                    onClick={async () => {
+                      try {
+                        const ok = await deleteRole(selected.id);
+                        if (!ok) alert('Cannot delete role with assigned users or system roles.');
+                      } catch (e) {
+                        alert(e instanceof Error ? e.message : 'Failed to delete role.');
+                      }
                     }}
                   >
                     <Trash2 className="h-4 w-4" />

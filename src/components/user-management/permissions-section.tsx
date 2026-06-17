@@ -13,6 +13,7 @@ export function PermissionsSection() {
   const [selectedId, setSelectedId] = useState(editableRoles[0]?.id ?? '');
   const [draft, setDraft] = useState<string[]>(editableRoles[0]?.permissions ?? []);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   const selected = editableRoles.find((r) => r.id === selectedId);
   const canEdit = canManageRolesAndPermissions(currentUser);
@@ -24,11 +25,18 @@ export function PermissionsSection() {
     setSaved(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!selectedId || !canEdit) return;
-    updateRolePermissions(selectedId, draft);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    setSaving(true);
+    try {
+      await updateRolePermissions(selectedId, draft);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch (e) {
+      window.alert(e instanceof Error ? e.message : 'Failed to save permissions.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   if (!canEdit) {
@@ -73,9 +81,9 @@ export function PermissionsSection() {
                 </h3>
                 <p className="text-sm text-erp-muted">{selected.description}</p>
               </div>
-              <Button className="gap-2" onClick={handleSave}>
+              <Button className="gap-2" onClick={handleSave} disabled={saving}>
                 <Save className="h-4 w-4" />
-                {saved ? 'Saved' : 'Save'}
+                {saving ? 'Saving...' : saved ? 'Saved' : 'Save'}
               </Button>
             </div>
             <PermissionsMatrix selected={draft} onChange={setDraft} />

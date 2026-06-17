@@ -15,6 +15,7 @@ export function UsersSection() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', password: '', role: 'operator', department: '' });
   const [formError, setFormError] = useState('');
+  const [saving, setSaving] = useState(false);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
@@ -28,37 +29,44 @@ export function UsersSection() {
 
   const roleLabel = (name: string) => roles.find((r) => r.name === name)?.label ?? name;
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     setFormError('');
     const error = validateFields([
       () => required(form.name, 'Name'),
       () => required(form.email, 'Email'),
       () => required(form.password, 'Password'),
       () => (form.password.length < 6 ? 'Password must be at least 6 characters.' : null),
-      () => (users.some((u) => u.email.toLowerCase() === form.email.trim().toLowerCase()) ? 'A user with this email already exists.' : null),
     ]);
     if (error) {
       setFormError(error);
       return;
     }
-    addUser(
-      {
-        name: form.name,
-        email: form.email,
-        role: form.role,
-        status: 'active',
-        avatar: form.name
-          .split(' ')
-          .map((n) => n[0])
-          .join('')
-          .slice(0, 2)
-          .toUpperCase(),
-        department: form.department || 'General',
-      },
-      form.password,
-    );
-    setForm({ name: '', email: '', password: '', role: 'operator', department: '' });
-    setShowForm(false);
+
+    setSaving(true);
+    try {
+      await addUser(
+        {
+          name: form.name,
+          email: form.email,
+          role: form.role,
+          status: 'active',
+          avatar: form.name
+            .split(' ')
+            .map((n) => n[0])
+            .join('')
+            .slice(0, 2)
+            .toUpperCase(),
+          department: form.department || 'General',
+        },
+        form.password,
+      );
+      setForm({ name: '', email: '', password: '', role: 'operator', department: '' });
+      setShowForm(false);
+    } catch (e) {
+      setFormError(e instanceof Error ? e.message : 'Failed to create user.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -94,7 +102,7 @@ export function UsersSection() {
         onSubmit={handleCreate}
         title="Add User"
         subtitle="Create a new account with email and password login"
-        submitLabel="Save User"
+        submitLabel={saving ? 'Saving...' : 'Save User'}
         error={formError}
       >
         <FormInput
@@ -165,11 +173,15 @@ export function UsersSection() {
                   <Can permission="users.edit">
                     <button
                       type="button"
-                      onClick={() =>
-                        updateUser(user.id, {
-                          status: user.status === 'active' ? 'inactive' : 'active',
-                        })
-                      }
+                      onClick={async () => {
+                        try {
+                          await updateUser(user.id, {
+                            status: user.status === 'active' ? 'inactive' : 'active',
+                          });
+                        } catch (e) {
+                          window.alert(e instanceof Error ? e.message : 'Failed to update user.');
+                        }
+                      }}
                     >
                       <StatusBadge status={user.status === 'active' ? 'Active' : 'Inactive'} />
                     </button>
@@ -182,7 +194,13 @@ export function UsersSection() {
                         variant="ghost"
                         size="sm"
                         className="text-erp-danger"
-                        onClick={() => deleteUser(user.id)}
+                        onClick={async () => {
+                          try {
+                            await deleteUser(user.id);
+                          } catch (e) {
+                            window.alert(e instanceof Error ? e.message : 'Failed to delete user.');
+                          }
+                        }}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
