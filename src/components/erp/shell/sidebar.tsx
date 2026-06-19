@@ -17,7 +17,7 @@ export function Sidebar() {
 
   return (
     <aside
-      className="fixed inset-y-0 left-0 z-40 flex flex-col border-r border-white/10 bg-erp-sidebar shadow-erp-sidebar transition-[width] duration-300 ease-in-out"
+      className="fixed inset-y-0 left-0 z-40 flex flex-col border-r border-white/10 bg-erp-sidebar transition-[width] duration-300 ease-in-out"
       style={{ width: collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_EXPANDED }}
     >
       <div className="flex h-full min-h-0 flex-col bg-erp-sidebar">
@@ -27,38 +27,36 @@ export function Sidebar() {
             collapsed ? 'px-3 py-4' : 'px-6 py-5',
           )}
         >
-          <div className={cn('flex flex-col', collapsed ? 'gap-3' : 'gap-4')}>
-            <div className={cn('flex items-center', collapsed ? 'justify-center' : 'gap-3')}>
+          <div
+            className={cn(
+              'flex items-center',
+              collapsed ? 'flex-col gap-3' : 'justify-between gap-3',
+            )}
+          >
+            <div className={cn('flex items-center', collapsed ? 'justify-center' : 'min-w-0 gap-3')}>
               <div className="erp-sidebar-icon-shell h-11 w-11 shrink-0">
                 <Factory className="h-5 w-5 text-erp-accent" strokeWidth={2} />
               </div>
               {!collapsed && (
-                <div className="min-w-0">
-                  <p className="font-display text-lg font-semibold tracking-tight text-erp-sidebarText">
-                    ForgeOS
-                  </p>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-erp-sidebarMuted">
-                    Manufacturing ERP
-                  </p>
-                </div>
+                <p className="font-display text-lg font-semibold tracking-tight text-erp-sidebarText">
+                  ForgeOS
+                </p>
               )}
             </div>
 
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={toggle}
-                aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-                title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-erp-sidebarMuted transition-all hover:border-erp-accent/30 hover:bg-erp-sidebarHover hover:text-erp-accent"
-              >
-                {collapsed ? (
-                  <PanelLeftOpen className="h-[18px] w-[18px]" />
-                ) : (
-                  <PanelLeftClose className="h-[18px] w-[18px]" />
-                )}
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={toggle}
+              aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-erp-sidebarMuted transition-all hover:border-erp-accent/30 hover:bg-erp-sidebarHover hover:text-erp-accent"
+            >
+              {collapsed ? (
+                <PanelLeftOpen className="h-[18px] w-[18px]" />
+              ) : (
+                <PanelLeftClose className="h-[18px] w-[18px]" />
+              )}
+            </button>
           </div>
         </div>
 

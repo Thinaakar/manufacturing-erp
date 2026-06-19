@@ -208,9 +208,9 @@ export function ProductionView() {
       <div className="erp-glass rounded-2xl p-1">
         <ModuleTabs
           tabs={[
-            { id: 'orders', label: 'Production Orders', count: orderTable.records.length },
-            { id: 'work', label: 'Work Orders', count: workOrderTable.records.length },
-            { id: 'schedule', label: 'Schedule', count: scheduleTable.records.length },
+            { id: 'orders', label: 'Production Orders' },
+            { id: 'work', label: 'Work Orders' },
+            { id: 'schedule', label: 'Schedule' },
             { id: 'tracking', label: 'Tracking' },
           ]}
           active={tab}

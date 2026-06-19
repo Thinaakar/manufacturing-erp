@@ -165,9 +165,9 @@ export function InventoryView() {
       <div className="erp-glass rounded-2xl p-1">
         <ModuleTabs
           tabs={[
-            { id: 'raw', label: 'Raw Materials', count: rawTable.records.length },
-            { id: 'finished', label: 'Finished Goods', count: finishedTable.records.length },
-            { id: 'warehouses', label: 'Warehouses', count: data.warehouses.length },
+            { id: 'raw', label: 'Raw Materials' },
+            { id: 'finished', label: 'Finished Goods' },
+            { id: 'warehouses', label: 'Warehouses' },
             { id: 'monitoring', label: 'Stock Monitoring' },
           ]}
           active={tab}

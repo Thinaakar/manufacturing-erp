@@ -156,8 +156,8 @@ export function PurchasingView() {
       <div className="erp-glass rounded-2xl p-1">
         <ModuleTabs
           tabs={[
-            { id: 'orders', label: 'Purchase Orders', count: poTable.records.length },
-            { id: 'suppliers', label: 'Suppliers', count: supplierTable.records.length },
+            { id: 'orders', label: 'Purchase Orders' },
+            { id: 'suppliers', label: 'Suppliers' },
             { id: 'status', label: 'Procurement Status' },
           ]}
           active={tab}

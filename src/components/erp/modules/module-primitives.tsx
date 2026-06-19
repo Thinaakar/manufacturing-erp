@@ -35,7 +35,7 @@ export function ModuleHeader({ badge, title, subtitle, description, action }: Mo
 }
 
 type ModuleTabsProps = {
-  tabs: { id: string; label: string; count?: number }[];
+  tabs: { id: string; label: string }[];
   active: string;
   onChange: (id: string) => void;
 };
@@ -56,9 +56,6 @@ export function ModuleTabs({ tabs, active, onChange }: ModuleTabsProps) {
           )}
         >
           {tab.label}
-          {tab.count !== undefined && (
-            <span className="ml-1.5 text-xs text-erp-muted">({tab.count})</span>
-          )}
         </button>
       ))}
     </div>

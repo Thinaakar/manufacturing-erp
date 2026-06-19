@@ -157,8 +157,8 @@ export function SalesView() {
       <div className="erp-glass rounded-2xl p-1">
         <ModuleTabs
           tabs={[
-            { id: 'orders', label: 'Orders', count: orderTable.records.length },
-            { id: 'customers', label: 'Customers', count: customerTable.records.length },
+            { id: 'orders', label: 'Orders' },
+            { id: 'customers', label: 'Customers' },
           ]}
           active={tab}
           onChange={setTab}

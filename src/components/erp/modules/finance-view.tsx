@@ -213,8 +213,8 @@ export function FinanceView() {
       <div className="erp-glass rounded-2xl p-1">
         <ModuleTabs
           tabs={[
-            { id: 'expenses', label: 'Expenses', count: expenseTable.records.length },
-            { id: 'invoices', label: 'Invoices', count: invoiceTable.records.length },
+            { id: 'expenses', label: 'Expenses' },
+            { id: 'invoices', label: 'Invoices' },
           ]}
           active={tab}
           onChange={setTab}

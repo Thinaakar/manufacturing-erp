@@ -10,10 +10,8 @@ import { UsersSection } from '@/components/user-management/users-section';
 import { Can } from '@/components/shared/can';
 import { PageTransition } from '@/components/ui/motion';
 import { settingsModule } from '@/lib/data/manufacturing-mock';
-import { useAuthStore } from '@/providers/auth-store';
 
 export function SettingsView() {
-  const { users, roles } = useAuthStore();
   const [tab, setTab] = useState('users');
 
   return (
@@ -28,8 +26,8 @@ export function SettingsView() {
       <div className="erp-glass rounded-2xl p-1">
         <ModuleTabs
           tabs={[
-            { id: 'users', label: 'Users', count: users.length },
-            { id: 'roles', label: 'Roles', count: roles.length },
+            { id: 'users', label: 'Users' },
+            { id: 'roles', label: 'Roles' },
             { id: 'permissions', label: 'Permissions' },
             { id: 'company', label: 'Company' },
             { id: 'master', label: 'Master Data' },

@@ -130,8 +130,8 @@ export function MaintenanceView() {
       <div className="erp-glass rounded-2xl p-1">
         <ModuleTabs
           tabs={[
-            { id: 'machines', label: 'Machines', count: data.machines.length },
-            { id: 'calendar', label: 'Maintenance Calendar', count: calendarTable.records.length },
+            { id: 'machines', label: 'Machines' },
+            { id: 'calendar', label: 'Maintenance Calendar' },
             { id: 'monitoring', label: 'Equipment Monitoring' },
           ]}
           active={tab}

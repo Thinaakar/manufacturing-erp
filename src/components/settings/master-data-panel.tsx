@@ -54,12 +54,12 @@ export function MasterDataPanel() {
       <div className="erp-glass rounded-2xl p-1">
         <ModuleTabs
           tabs={[
-            { id: 'organization', label: 'Organization', count: store.plants.length + store.shifts.length + store.departments.length },
-            { id: 'items', label: 'Items & Inventory', count: store.items.length + store.warehouses.length },
-            { id: 'production', label: 'Production', count: store.productionLines.length + store.machines.length },
-            { id: 'partners', label: 'Partners', count: store.suppliers.length + store.customers.length },
-            { id: 'quality', label: 'Quality & Maintenance', count: store.defectTypes.length + store.maintenanceTypes.length },
-            { id: 'finance', label: 'Finance', count: store.expenseCategories.length },
+            { id: 'organization', label: 'Organization' },
+            { id: 'items', label: 'Items & Inventory' },
+            { id: 'production', label: 'Production' },
+            { id: 'partners', label: 'Partners' },
+            { id: 'quality', label: 'Quality & Maintenance' },
+            { id: 'finance', label: 'Finance' },
           ]}
           active={tab}
           onChange={setTab}

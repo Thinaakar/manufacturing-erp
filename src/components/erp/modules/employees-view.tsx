@@ -128,8 +128,8 @@ export function EmployeesView() {
       <div className="erp-glass rounded-2xl p-1">
         <ModuleTabs
           tabs={[
-            { id: 'attendance', label: 'Attendance', count: attendanceTable.records.length },
-            { id: 'departments', label: 'Workforce Overview', count: data.departments.length },
+            { id: 'attendance', label: 'Attendance' },
+            { id: 'departments', label: 'Workforce Overview' },
           ]}
           active={tab}
           onChange={setTab}

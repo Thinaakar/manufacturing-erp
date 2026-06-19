@@ -37,7 +37,6 @@ module.exports = {
         "erp-card": "var(--erp-shadow-card)",
         "erp-glow": "var(--erp-shadow-glow)",
         "erp-hover": "var(--erp-shadow-hover)",
-        "erp-sidebar": "4px 0 24px rgba(15, 23, 42, 0.15)",
       },
       backgroundImage: {
         "erp-gradient":

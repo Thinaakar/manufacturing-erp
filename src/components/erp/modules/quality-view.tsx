@@ -141,8 +141,8 @@ export function QualityView() {
       <div className="erp-glass rounded-2xl p-1">
         <ModuleTabs
           tabs={[
-            { id: 'checks', label: 'Quality Checks', count: checkTable.records.length },
-            { id: 'defects', label: 'Defect Reports', count: defectTable.records.length },
+            { id: 'checks', label: 'Quality Checks' },
+            { id: 'defects', label: 'Defect Reports' },
           ]}
           active={tab}
           onChange={setTab}
